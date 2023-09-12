@@ -63,7 +63,7 @@ spec:
       workspace: maven-settings
     params:
     - name: GOALS
-      value: ["package", "-f", "spring-petclinic"]
+      value: ["package", "-f", "spring-petclinic/pom.xml"]
   - name: code-analysis
     taskRef:
       name: maven
@@ -80,7 +80,7 @@ spec:
       - install
       - sonar:sonar
       - -f
-      - spring-petclinic
+      - spring-petclinic/pom.xml
       - -Dsonar.host.url=http://sonarqube:9000
       - -Dsonar.userHome=/tmp/sonar
       - -DskipTests=true
@@ -114,7 +114,7 @@ spec:
       value:
       - deploy
       - -f
-      - spring-petclinic
+      - spring-petclinic/pom.xml
       - -DskipTests=true
       - -DaltDeploymentRepository=nexus::default::http://nexus:8081/repository/maven-releases/
       - -DaltSnapshotDeploymentRepository=nexus::default::http://nexus:8081/repository/maven-snapshots/

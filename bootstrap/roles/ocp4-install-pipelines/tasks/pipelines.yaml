@@ -44,6 +44,18 @@
   debug:
     msg: "{{ r_gogs_route.resources[0].spec.host }}"
 
+- name: Get Infrastructure type
+  kubernetes.core.k8s_info:
+    kind: Infrastructure
+    api_version: config.openshift.io/v1
+    name: cluster
+  register: r_infrastructure_cluster
+
+- name: Set PVC to use azurefile-csi if running on Azure
+  ansible.builtin.set_fact:
+      pvc_storage_class: azurefile-csi
+  when: r_infrastructure_cluster.resources[0].status.platform == "Azure"
+
 - name: Create OpenShift Objects for Openshift Pipelines Templates
   k8s:
     state: present

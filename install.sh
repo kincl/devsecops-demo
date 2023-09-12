@@ -18,4 +18,3 @@ err() {
 
 info "Installing Demo"
 ansible-playbook bootstrap/deploy_demo.yaml -v
-ansible-playbook bootstrap/deploy_signing.yaml -v

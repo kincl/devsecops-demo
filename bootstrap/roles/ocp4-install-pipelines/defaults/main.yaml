@@ -9,3 +9,5 @@ gitops_expected_crds:
 - applicationsets.argoproj.io
 - appprojects.argoproj.io
 - argocds.argoproj.io
+
+pvc_storage_class: default

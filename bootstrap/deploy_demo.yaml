@@ -5,39 +5,39 @@
   tasks:
 
     - name: 'Install Gitops'
-      include_role:
+      ansible.builtin.import_role:
         name: "ocp4-install-gitops"
 
     - name: 'Install CICD Infra'
-      include_role:
+      ansible.builtin.import_role:
         name: "ocp4-install-cicd"
 
     - name: 'Install Pipelines'
-      include_role:
+      ansible.builtin.import_role:
         name: "ocp4-install-pipelines"
 
     - name: 'Config GitOps'
-      include_role:
+      ansible.builtin.import_role:
         name: "ocp4-config-gitops"
 
     - name: 'Install the ACS Central'
-      include_role:
+      ansible.builtin.import_role:
         name: "ocp4-install-acs"
 
     # Include the policies, and some content to show in the demo
     - name: 'Install the ACS Post Content'
-      include_role:
+      ansible.builtin.import_role:
         name: "ocp4-post-acs"
 
     # Extend Original Demo for Image and TaskRun Signing
     - name: 'Install NooBaa'
-      include_role:
+      ansible.builtin.import_role:
         name: "ocp4-install-noobaa"
 
     - name: 'Install and configure Quay'
-      include_role:
+      ansible.builtin.import_role:
         name: "ocp4-install-quay"
 
     - name: 'Install and Enable the infra for Signing and Tekton Chaining'
-      include_role:
+      ansible.builtin.import_role:
         name: "ocp4-install-signing"

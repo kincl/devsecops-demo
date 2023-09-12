@@ -28,4 +28,16 @@
     - name: 'Install the ACS Post Content'
       include_role:
         name: "ocp4-post-acs"
-  
+
+    # Extend Original Demo for Image and TaskRun Signing
+    - name: 'Install NooBaa'
+      include_role:
+        name: "ocp4-install-noobaa"
+
+    - name: 'Install and configure Quay'
+      include_role:
+        name: "ocp4-install-quay"
+
+    - name: 'Install and Enable the infra for Signing and Tekton Chaining'
+      include_role:
+        name: "ocp4-install-signing"

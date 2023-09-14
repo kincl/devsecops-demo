@@ -167,8 +167,9 @@ spec:
       value: roxsecrets
     - name: output_format
       value: table
-    - name: image_digest
-      value: $(tasks.build-image.results.IMAGE_DIGEST)
+    workspaces:
+    - name: source
+      workspace: workspace
   - name: image-check
     runAfter:
     - build-image
@@ -182,8 +183,9 @@ spec:
       value: roxsecrets
     - name: rox_central_endpoint
       value: roxsecrets
-    - name: image_digest
-      value: $(tasks.build-image.results.IMAGE_DIGEST)
+    workspaces:
+      - name: workspace
+        workspace: workspace
   - name: deploy-check
     runAfter:
     - build-image
@@ -223,8 +225,6 @@ spec:
         value: quay.io/siamaksade/spring-petclinic:latest
       - name: NEW_IMAGE
         value: {{ quay_route}}/{{ quay_org_name }}/spring-petclinic-stage
-      - name: NEW_DIGEST
-        value: "$(tasks.build-image.results.IMAGE_DIGEST)"
       - name: KUSTOMIZATION_PATH
         value: environments/stage
     workspaces:

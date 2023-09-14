@@ -17,9 +17,6 @@ spec:
       type: string
       description:  Output format (json | csv | table)
       default: json
-    - name: image_digest
-      description:  Digest in sha256 hash format of the image to scan
-      type: string
   steps:
     - name: rox-image-scan
       image: registry.access.redhat.com/ubi8/ubi-minimal:latest
@@ -40,6 +37,10 @@ spec:
         export NO_COLOR="True"
         curl -k -L -H "Authorization: Bearer $ROX_API_TOKEN" https://$ROX_CENTRAL_ENDPOINT/api/cli/download/roxctl-linux --output ./roxctl  > /dev/null; echo "Getting roxctl"
         chmod +x ./roxctl > /dev/null
-        echo "## Scanning image $(params.image)@$(params.image_digest)"
-        ./roxctl image scan --insecure-skip-tls-verify -e $ROX_CENTRAL_ENDPOINT --image $(params.image)@$(params.image_digest) --output $(params.output_format)
-        echo "## Go to https://$ROX_CENTRAL_ENDPOINT/main/vulnerability-management/image/$(params.image_digest) to check more info"
+        export DIGEST=$(cat $(workspaces.source.path)/image-digest)
+        echo "## Scanning image $(params.image)@$DIGEST"
+        ./roxctl image scan --insecure-skip-tls-verify -e $ROX_CENTRAL_ENDPOINT --image $(params.image)@$DIGEST --output $(params.output_format)
+        echo "## Go to https://$ROX_CENTRAL_ENDPOINT/main/vulnerability-management/image/$DIGEST to check more info"
+  workspaces:
+    - mountPath: /workspace/source
+      name: source

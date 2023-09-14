@@ -22,7 +22,7 @@ err() {
 
 while (( "$#" )); do
   case "$1" in
-    start|promote|status|sign-verify)
+    start|promote|status|sign-verify|reset)
       COMMAND=$1
       shift
       ;;
@@ -51,6 +51,7 @@ command.help() {
       promote                        Starts the deploy STAGE pipeline
       status                         Check the resources available for the demo
       sign-verify                    If Tekton Chaining was enabled run Signature Verification On Tasks
+      reset                          Reset PipelineRuns and delete existing ones
       help                           Help about this command
 EOF
 }
@@ -149,6 +150,14 @@ command.sign-verify() {
     # payload=$(oc get taskrun/petclinic-build-dev-z8zq7v-build-image -n cicd -o jsonpath='{.metadata.annotations.chains\.tekton\.dev/payload-taskrun-171087b9-512e-4237-ab70-6f01083e9170}')
     
     # oc run cosign-verify --image=gcr.io/projectsigstore/cosign:v1.9.0 -- verify --key $cosign_key --signature $signature $payload
+}
+
+command.reset() {
+  info "## Delete all PipelineRuns in cicd namespace"
+  oc -n cicd delete pipelinerun --all
+
+  info "## Reset OpenShift Pipelines deployment"
+  ansible-playbook bootstrap/deploy_demo.yaml -t pipelines
 }
 
 main() {

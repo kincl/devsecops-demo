@@ -59,6 +59,7 @@
   - ./templates/pipeline-build-dev.yaml.j2
   - ./templates/pipeline-build-stage.yaml.j2
 #  - ./templates/pipeline-build-pvc.yaml.j2
+  - ./templates/task-fix-package-manager.yaml.j2
 
 - name: Patch Openshift Image Config - Message
   ansible.builtin.debug:

@@ -13,6 +13,7 @@
         name: "ocp4-install-cicd"
 
     - name: 'Install Pipelines'
+      tags: pipelines
       ansible.builtin.import_role:
         name: "ocp4-install-pipelines"
 
@@ -39,5 +40,6 @@
         name: "ocp4-install-quay"
 
     - name: 'Install and Enable the infra for Signing and Tekton Chaining'
+      tags: pipelines
       ansible.builtin.import_role:
         name: "ocp4-install-signing"

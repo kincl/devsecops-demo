@@ -6,7 +6,7 @@ metadata:
 spec:
   description: This Task can be used to fix an image and remove the package manager
   params:
-    - default: image-registry.openshift-image-registry.svc:5000/$(context.pipelineRun.namespace)/spring-petclinic
+    - default: {{ quay_route}}/{{ quay_org_name }}/spring-petclinic-dev
       description: Location of the repo where image has to be pushed
       name: IMAGE_NAME
       type: string
